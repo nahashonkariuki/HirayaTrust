@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HIRAYA TRUST</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+  --primary: #f5f5dc;      /* beige */
+  --primary-dark: #d6cfa3; /* darker beige */
+  --secondary: #7e6f58;    /* darkest beige */
+  --light: #ffffff;        /* white */
+  --dark: #222222;         /* near-black for text */
+  --accent: #c4a12d;       /* gold accent */
+  --transition: all 0.3s ease;
+}
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.7;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Navigation */
+    header {
+      background-color: var(--primary-dark);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+    
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    .logo span { color: var(--accent); }
+
+    .nav-links { display: flex; gap: 30px; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--dark);
+      font-weight: 500;
+      transition: var(--transition);
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--secondary); }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px; left: 0;
+      width: 0; height: 2px;
+      background-color: var(--secondary);
+      transition: var(--transition);
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active { color: var(--secondary); }
+    .nav-links a.active::after { width: 100%; }
+    .mobile-menu-btn { display: none; font-size: 24px; background: none; border: none; cursor: pointer; color: var(--dark); }
+    
+    /* Page content */
+    .page { display: none; animation: fadeIn 0.5s ease; padding: 60px 0; min-height: calc(100vh - 190px); }
+    .page.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    
+    /* Hero */
+    .hero {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/a3dda577-b2ad-40a9-ae53-636f724c14d9.png') no-repeat center/cover;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero h1 { font-size: 48px; margin-bottom: 20px; }
+    .hero p { font-size: 20px; }
+
+    
+    /* Buttons */
+    .btn {
+      display: inline-block; padding: 12px 30px;
+      background-color: var(--accent); color: white;
+      text-decoration: none; border-radius: 5px; font-weight: 500;
+      transition: var(--transition); border: none; cursor: pointer; font-size: 16px;
+    }
+
+    .btn:hover { background-color: #a88520; transform: translateY(-2px); }
+    .btn-primary { background-color: var(--primary-dark); color: var(--dark); }
+    .btn-primary:hover { background-color: var(--primary); }
+
+    .section { padding: 80px 20px; }
+    .section:nth-child(even) { background-color: var(--primary); }
+    .section:nth-child(odd) { background-color: var(--primary-dark); }
+
+        /* Section titles */
+    .section-title {
+      text-align: center;
+      margin-bottom: 50px;
+      font-size: 36px;
+      color: #000000; /* force black */
+    }
+    .values-list, .objectives-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .values-list p, .objectives-list li {
+      margin-bottom: 15px;
+    }
+
+    .objectives-list { list-style: decimal; padding-left: 20px; }
+    
+    /* About */
+    .about { background-color: var(--primary); padding: 80px 0; }
+    .about-content { display: flex; align-items: center; gap: 50px; }
+    .about-text { flex: 1; }
+    .about-text h3 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #000000; /* force black */
+    }
+    .about-image { flex: 1; border-radius: 10px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+    .about-image img { width: 100%; height: auto; display: block; }
+    
+    /* Stats */
+    .stats {
+      background-color: var(--primary-dark);
+      padding: 80px 0;
+      text-align: center;
+    }
+
+    .stat-item h3 {
+      font-size: 50px;
+      margin-bottom: 10px;
+      color: #000000; /* strong contrast */
+    }
+
+    .stat-item p {
+      font-size: 18px;
+      color: #000000; /* black text for clarity */
+    }
+
+    
+    /* Services */
+    .services { background-color: var(--primary); padding: 80px 0; }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .service-card {
+      background-color: var(--light);
+      padding: 30px; border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center;
+    }
+      .service-card h3 {
+    margin: 20px 0 15px;
+    color: #000000; /* force black */
+  }
+    
+    /* Donate */
+    .donate { background-color: var(--primary-dark); padding: 80px 0; }
+    .donate-form {
+      background-color: var(--light); padding: 40px;
+      border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Team */
+    .team { background-color: var(--primary); padding: 80px 0; }
+    .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+    .team-member {
+      background-color: var(--light);
+      padding: 20px; border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center;
+    }
+    
+    /* Contact */
+    .contact { background-color: var(--primary-dark); padding: 80px 0; display: flex; gap: 40px; }
+    .contact-form {
+      background-color: var(--light); flex: 1; padding: 30px;
+      border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: #6E5C4B; /* espresso beige */
+      color: var(--light);
+      padding: 50px 20px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .footer-top h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: var(--primary-dark);
+    }
+
+    .footer-top p {
+      font-size: 14px;
+      color: var(--light);
+      margin-bottom: 30px;
+    }
+
+    .footer-links ul {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 20px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .footer-links ul li a {
+      color: var(--light);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links ul li a:hover {
+      color: var(--accent); /* gold on hover */
+    }
+
+    .footer-socials {
+      margin: 20px 0;
+    }
+
+    .footer-socials a {
+      color: var(--light);
+      margin: 0 10px;
+      font-size: 20px;
+      transition: var(--transition);
+    }
+
+    .footer-socials a:hover {
+      color: var(--accent); /* gold hover */
+    }
+
+    .footer-bottom {
+      margin-top: 20px;
+      font-size: 14px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 15px;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .about-content { flex-direction: column; }
+      .about-image { width: 100%; }
+      .contact { flex-direction: column; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .hero h1 { font-size: 36px; }
+      .hero p { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo">HIRAYA<span>TRUST</span></div>
+        <button class="mobile-menu-btn">☰</button>
+        <div class="nav-links">
+          <a href="#" class="active" data-page="home">Home</a>
+          <a href="#" data-page="about">About Us</a>
+          <a href="#" data-page="donate">Donate</a>
+          <a href="#" data-page="contact">Contact Us</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Home Page -->
+    <div class="page active" id="home-page">
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1>HIRAYA TRUST</h1>
+            <p>Ending child and youth homelessness in Kenya and Beyond</p>
+            <div>
+              <a href="#" class="btn" data-page="donate">Donate Now</a>
+              <a href="#" class="btn btn-primary" data-page="about">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Mission -->
+  <section class="section">
+    <h2 class="section-title">Mission</h2>
+    <div class="container">
+      <p>
+        To end child and youth homelessness in Kenya and beyond by providing safe shelter, education, mental health services, technical training, rehabilitation, and reintegration. We support individuals holistically—meeting both urgent needs and empowering long-term recovery—while advocating for policy change to address the root causes of homelessness.
+      </p>
+    </div>
+  </section>
+
+  <!-- Vision -->
+  <section class="section">
+    <h2 class="section-title">Vision</h2>
+    <div class="container">
+      <p>
+        A future where child and youth homelessness is no longer a crisis, but proof that with the right support—shelter, care, education, and policy change—we can rebuild lives and restore hope.
+      </p>
+    </div>
+  </section>
+
+  <!-- Core Values -->
+  <section class="section">
+    <h2 class="section-title">Core Values</h2>
+    <div class="container values-list">
+      <p><strong>H – Hope:</strong> We believe in the power of transformation. No matter how difficult the journey, we hold onto the belief that change is possible and every person deserves a second chance.</p>
+      <p><strong>I – Inclusion:</strong> We serve with open hearts. Every individual—regardless of background, status, or story—is welcomed, respected, and valued in our work.</p>
+      <p><strong>R – Restoration:</strong> We are committed to healing. We work to restore broken lives through shelter, support, care, and the rebuilding of self-worth and purpose.</p>
+      <p><strong>A – Accountability:</strong> We act with honesty, responsibility, and transparency. We honour the trust placed in us by our communities, supporters, and those we serve.</p>
+      <p><strong>Y – Yield:</strong> We believe that true service bears fruit. By investing deeply in people, we yield transformed lives, stronger communities, and lasting impact—both now and for generations to come.</p>
+      <p><strong>A – Advocacy:</strong> We speak truth to power. We use our voice, experience, and research to influence systems and policies that affect people facing homelessness.</p>
+    </div>
+  </section>
+
+  <!-- Objectives -->
+  <section class="section">
+    <h2 class="section-title">Objectives</h2>
+    <div class="container">
+      <ol class="objectives-list">
+        <li><strong>Shelter Provision:</strong> To offer safe, dignified, and trauma-informed housing solutions for individuals and families experiencing homelessness.</li>
+        <li><strong>Rehabilitation and Recovery Support:</strong> To offer specialised rehabilitation services, including substance abuse treatment, counselling, and holistic care to help individuals overcome addiction and rebuild their lives.</li>
+        <li><strong>Mental Health and Psychosocial Support:</strong> To provide accessible, compassionate care addressing trauma, emotional wellbeing, and mental health challenges.</li>
+        <li><strong>Education and Life Skills Development:</strong> To support individuals in returning to formal education—whether primary, secondary, or vocational—while also providing essential life skills that foster independence and personal growth.</li>
+        <li><strong>Technical and Vocational Training:</strong> To create economic opportunities through skills development and job readiness training tailored to local markets.</li>
+        <li><strong>Reintegration and Long-Term Stability:</strong> To assist individuals in successfully re-entering society by connecting them with permanent housing, employment, and supportive community networks.</li>
+        <li><strong>Policy Advocacy and Systems Reform:</strong> To collaborate with governments and stakeholders to develop and implement policies that prevent homelessness and safeguard the rights of vulnerable populations.</li>
+      </ol>
+    </div>
+  </section>
+
+      <section class="about">
+        <div class="container">
+          <h2 class="section-title">Our Mission</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <h3>Preventing and Reducing Homelessness</h3>
+              <p>Our organization works tirelessly across all regions of the United Kingdom to address the root causes of homelessness through direct support, policy change, and community engagement.</p>
+              <p>We believe everyone deserves safe, secure and affordable housing. Our approach combines emergency support with long-term solutions to create sustainable change.</p>
+              <a href="#" class="btn" data-page="about">Read Our Full Story</a>
+            </div>
+            <div class="about-image">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/668caeec-5bcc-45c7-93b6-eaf0f2cf22a6.png" alt="Volunteers distributing warm meals and blankets to homeless individuals in an urban setting at night" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="container">
+          <div class="stats-container">
+            <div class="stat-item">
+              <h3 data-count="2800">0</h3>
+              <p>People sheltered last year</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-count="45">0</h3>
+              <p>Cities we operate in</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-count="85">0</h3>
+              <p>Successful transitions to housing</p>
+            </div>
+            <div class="stat-item">
+              <h3 data-count="240">0</h3>
+              <p>Dedicated staff and volunteers</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- About Page -->
+    <div class="page" id="about-page">
+      <section class="about">
+        <div class="container">
+          <h2 class="section-title">About Our Organization</h2>
+          <div class="about-content">
+            <div class="about-text">
+              <h3>Our Story</h3>
+              <p>Founded in 2023 by a group of social workers and housing advocates, UK Homeless began as a small community initiative in London. Over the past decade, we've grown into a nationwide movement tackling homelessness through innovative programs.</p>
+              <h3>Our Approach</h3>
+              <p>We take a three-pronged approach:</p>
+              <ul style="list-style: none; margin-bottom: 20px;">
+                <li>✓ <strong>Emergency Support:</strong> Providing immediate shelter and necessities</li>
+                <li>✓ <strong>Transition Programs:</strong> Helping individuals move into stable housing</li>
+                <li>✓ <strong>Prevention:</strong> Addressing root causes through advocacy and education</li>
+              </ul>
+              <p>Our model has been recognized by housing experts as one of the most effective in the country.</p>
+            </div>
+            <div class="about-image">
+              <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/41bbae01-4ef9-446e-8356-37c8f6ef612f.png" alt="Group of diverse volunteers building wooden structures for emergency housing in a community project" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="about" style="background-color: #f1f5f9; padding: 80px 0;">
+        <div class="container">
+          <h2 class="section-title">Our Team</h2>
+          <div class="about-content" style="flex-direction: column;">
+            <div class="about-text" style="text-align: center; max-width: 800px; margin: 0 auto;">
+              <p>We're proud to have a diverse team of passionate professionals including social workers, housing experts, counselors and community organizers working across the UK to implement our programs.</p>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-top: 40px;">
+              <div style="background-color: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; background-color: #e2e8f0;">
+                  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f1afc4bc-a010-473d-a659-28296bb14b00.png" alt="Professional portrait of James Wilson, our Executive Director, smiling confidently" />
+                </div>
+                <h4 style="margin-bottom: 10px;">James Wilson</h4>
+                <p style="color: var(--secondary); font-size: 14px;">Executive Director</p>
+              </div>
+              <div style="background-color: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; background-color: #e2e8f0;">
+                  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c5f24db2-4ee0-4fa6-b52a-a59adc9fcc44.png" alt="Professional portrait of Sarah Johnson, our Programs Director, looking thoughtfully" />
+                </div>
+                <h4 style="margin-bottom: 10px;">Sarah Johnson</h4>
+                <p style="color: var(--secondary); font-size: 14px;">Programs Director</p>
+              </div>
+              <div style="background-color: white; padding: 30px; border-radius: 10px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden; margin: 0 auto 20px; background-color: #e2e8f0;">
+                  <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2e70526c-3987-4456-824b-5abdf2e91e0c.png" alt="Professional portrait of David Brown, our Regional Coordinator, dressed casually" />
+                </div>
+                <h4 style="margin-bottom: 10px;">David Brown</h4>
+                <p style="color: var(--secondary); font-size: 14px;">Regional Coordinator</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Donate Page -->
+    <div class="page" id="donate-page">
+      <section class="about">
+        <div class="container">
+          <h2 class="section-title">Make a Difference</h2>
+          <div class="donate-form">
+            <h3 style="margin-bottom: 30px; text-align: center;">Support Our Work</h3>
+            <form id="donation-form">
+              <div class="form-group">
+                <label for="amount">Donation Amount</label>
+                <div class="donation-amounts">
+                  <button type="button" class="donation-btn" data-amount="10">£10</button>
+                  <button type="button" class="donation-btn" data-amount="25">£25</button>
+                  <button type="button" class="donation-btn active" data-amount="50">£50</button>
+                  <button type="button" class="donation-btn" data-amount="100">£100</button>
+                  <button type="button" class="donation-btn" data-amount="250">£250</button>
+                </div>
+                <input type="number" id="amount" name="amount" class="form-control" placeholder="Other amount (£)" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" class="form-control" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="payment">Payment Method</label>
+                <select id="payment" name="payment" class="form-control" required>
+                  <option value="">Select payment method</option>
+                  <option value="credit">Credit/Debit Card</option>
+                  <option value="paypal">PayPal</option>
+                  <option value="bank">Bank Transfer</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" name="gift-aid" id="gift-aid"> I want to Gift Aid my donation
+                </label>
+              </div>
+              
+              <button type="submit" class="btn" style="width: 100%;">Donate Now</button>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="about" style="background-color: #f1f5f9; padding: 80px 0;">
+        <div class="container">
+          <h2 class="section-title">Where Your Money Goes</h2>
+          <div style="max-width: 800px; margin: 0 auto;">
+            <div style="display: flex; flex-direction: column; gap: 30px;">
+              <div style="background-color: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 20px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background-color: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; flex-shrink: 0;">80%</div>
+                <div>
+                  <h3 style="margin-bottom: 10px;">Direct Services</h3>
+                  <p>80% of donations directly fund our shelters, housing programs, and support services.</p>
+                </div>
+              </div>
+              <div style="background-color: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 20px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background-color: var(--primary-dark); display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; flex-shrink: 0;">15%</div>
+                <div>
+                  <h3 style="margin-bottom: 10px;">Advocacy & Education</h3>
+                  <p>15% supports our policy work and community education initiatives.</p>
+                </div>
+              </div>
+              <div style="background-color: white; padding: 20px; border-radius: 10px; display: flex; align-items: center; gap: 20px;">
+                <div style="width: 100px; height: 100px; border-radius: 50%; background-color: var(--secondary); display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; flex-shrink: 0;">5%</div>
+                <div>
+                  <h3 style="margin-bottom: 10px;">Administration</h3>
+                  <p>Only 5% goes toward administrative costs.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Contact Page -->
+    <div class="page" id="contact-page">
+      <section class="about">
+        <div class="container">
+          <h2 class="section-title">Get in Touch</h2>
+          <div class="contact">
+            <div class="contact-info">
+              <h3 style="margin-bottom: 30px;">Our Offices</h3>
+              
+              <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <div>
+                  <h4>London Headquarters</h4>
+                  <p>123 Homelessness Avenue<br>London E1 6AN</p>
+                </div>
+              </div>
+              
+              <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <div>
+                  <h4>General Enquiries</h4>
+                  <p>+44 20 8123 4567<br>Mon-Fri, 9am-5pm</p>
+                </div>
+              </div>
+              
+              <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <div>
+                  <h4>Email</h4>
+                  <p>info@ukhomeless.org<br>We respond within 48 hours</p>
+                </div>
+              </div>
+              
+              <div class="contact-item">
+                <div class="contact-icon">🕒</div>
+                <div>
+                  <h4>Social Media</h4>
+                  <p>Follow us for updates and stories</p>
+                  <div style="display: flex; gap: 15px; margin-top: 10px;">
+                    <a href="#" style="color: var(--primary); font-size: 24px;">📱</a>
+                    <a href="#" style="color: var(--primary); font-size: 24px;">📘</a>
+                    <a href="#" style="color: var(--primary); font-size: 24px;">📸</a>
+                    <a href="#" style="color: var(--primary); font-size: 24px;">📹</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="contact-form">
+              <h3 style="margin-bottom: 30px;">Send Us a Message</h3>
+              <form id="contact-form">
+                <div class="form-group">
+                  <label for="contact-name">Full Name</label>
+                  <input type="text" id="contact-name" name="contact-name" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="contact-email">Email Address</label>
+                  <input type="email" id="contact-email" name="contact-email" class="form-control" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="subject">Subject</label>
+                  <select id="subject" name="subject" class="form-control" required>
+                    <option value="">Select subject</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="volunteer">Volunteer Opportunity</option>
+                    <option value="donation">Donation Question</option>
+                    <option value="support">Request Support</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label for="message">Message</label>
+                  <textarea id="message" name="message" class="form-control" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+<footer>
+  <div class="container footer-content">
+    <div class="footer-top">
+      <h3>HIRAYA TRUST</h3>
+      <p>Ending child and youth homelessness in Kenya and beyond</p>
+    </div>
+
+    <div class="footer-links">
+      <ul>
+        <li><a href="#mission">Mission</a></li>
+        <li><a href="#vision">Vision</a></li>
+        <li><a href="#values">Core Values</a></li>
+        <li><a href="#objectives">Objectives</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-socials">
+      <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+      <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 HIRAYA TRUST. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+    });
+    
+    // Page navigation
+    document.querySelectorAll('[data-page]').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pageId = link.getAttribute('data-page');
+        
+        // Hide all pages
+        document.querySelectorAll('.page').forEach(page => {
+          page.classList.remove('active');
+        });
+        
+        // Show selected page
+        document.getElementById(`${pageId}-page`).classList.add('active');
+        
+        // Update active nav link
+        document.querySelectorAll('.nav-links a').forEach(navLink => {
+          navLink.classList.remove('active');
+        });
+        
+        link.classList.add('active');
+        
+        // Close mobile menu if open
+        navLinks.style.display = 'none';
+        
+        // Scroll to top
+        window.scrollTo(0, 0);
+      });
+    });
+    
+    // Donation amount buttons
+    document.querySelectorAll('.donation-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.donation-btn').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        button.classList.add('active');
+        document.getElementById('amount').value = button.getAttribute('data-amount');
+      });
+    });
+    
+    // Count-up animation for stats
+    function animateCountUp() {
+      const statItems = document.querySelectorAll('.stat-item h3');
+      
+      statItems.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const steps = 20;
+        const increment = target / steps;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += increment;
+          stat.textContent = Math.floor(current);
+          
+          if (current >= target) {
+            stat.textContent = target;
+            clearInterval(timer);
+          }
+        }, duration / steps);
+      });
+    }
+    
+    // Run animation when stats section is in view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCountUp();
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    
+    observer.observe(document.querySelector('.stats'));
+    
+    // Form validation
+    const donationForm = document.getElementById('donation-form');
+    const contactForm = document.getElementById('contact-form');
+    
+    if (donationForm) {
+      donationForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your donation! We appreciate your support.');
+        donationForm.reset();
+      });
+    }
+    
+    if (contactForm) {
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Thank you for your message. We will respond as soon as possible.');
+        contactForm.reset();
+      });
+    }
+  </script>
+</body>
+</html>
